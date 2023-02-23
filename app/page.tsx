@@ -14,19 +14,19 @@ import SearchBar from 'material-ui-search-bar';
 
 interface food {
   name: string;
-  gender: string;
   age: number;
   religion: string;
   country: string;
+  color: string;
 }
 
 const originalRows: food[] = [
-  { name: "Ali", gender: "male", age: 15, religion: "Islam", country: "USA" },
-  { name: "Saira", gender: "female", age: 24, religion: "Islam", country: "USA" },
-  { name: "Ahmed", gender: "male", age: 31, religion: "Islam", country: "UK" },
-  { name: "Aamna", gender: "female", age: 43, religion: "Christianity", country: "UAE" },
-  { name: "Qasim", gender: "male", age: 56, religion: "Islam", country: "UK" },
-  { name: "Komal", gender: "female", age: 63, religion: "Christianity", country: "UAE" }
+  { name: "Ali", age: 15, religion: "Islam", country: "USA", color: "Red" },
+  { name: "Saira", age: 24, religion: "Islam", country: "USA", color: "Green" },
+  { name: "Ahmed", age: 31, religion: "Islam", country: "UK", color: "Red" },
+  { name: "Aamna", age: 43, religion: "Christianity", country: "UAE", color: "Red" },
+  { name: "Qasim", age: 56, religion: "Islam", country: "UK", color: "Green" },
+  { name: "Komal", age: 63, religion: "Christianity", country: "UAE", color: "Red" }
 ];
 
 
@@ -39,10 +39,10 @@ export default function BasicTable() {
     const filteredRows = originalRows.filter((row) => {
       return (
         row.name.toLowerCase().includes(searchedVal.toLowerCase())
-      ||row.gender.toLowerCase().includes(searchedVal.toLowerCase())
       ||row.age.toString().includes(searchedVal.toLowerCase())
       ||row.religion.toLowerCase().includes(searchedVal.toLowerCase())
       ||row.country.toLowerCase().includes(searchedVal.toLowerCase())
+      ||row.color.toLowerCase().includes(searchedVal.toLowerCase())
       )
     });
 
@@ -71,25 +71,25 @@ export default function BasicTable() {
           onCancelSearch={() => cancelSearch()}
         />
 
-        <TableContainer className="!p-[1.5rem]">
+        <TableContainer className={`!p-[1.5rem] ${(rows.length===0)&&`invisible`}`}>
           <Table>
             <TableHead>
               <TableRow>
                 <TableCell className="!font-bold !text-base"> Name </TableCell>
-                <TableCell className="!font-bold !text-base" align="right"> Gender </TableCell>
                 <TableCell className="!font-bold !text-base" align="right"> Age </TableCell>
                 <TableCell className="!font-bold !text-base" align="right"> Religion </TableCell>
                 <TableCell className="!font-bold !text-base" align="right"> Country </TableCell>
+                <TableCell className="!font-bold !text-base" align="right"> Color </TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
               {rows.map((row) => (
                 <TableRow key={row.name}>
                   <TableCell component="th" scope="row"> {row.name} </TableCell>
-                  <TableCell align="right"> {row.gender} </TableCell>
                   <TableCell align="right"> {row.age} </TableCell>
                   <TableCell align="right"> {row.religion} </TableCell>
                   <TableCell align="right"> {row.country} </TableCell>
+                  <TableCell align="right"> {row.color} </TableCell>
                 </TableRow>
               ))}
             </TableBody>
